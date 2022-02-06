@@ -41,7 +41,7 @@ function App() {
   }
 
   return (
-    <Box w="full" px="20px">
+    <Box w="100vw" px="20px" overflow={'hidden'}>
       <Flex
         maxW={'6xl'}
         minH="100vh"
