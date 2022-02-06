@@ -19,6 +19,7 @@ import { User } from '../features/Users/types'
 import { useAppSelector } from '../app/hooks'
 import { selectUsers } from '../features/Users/usersSlice'
 import { Link as ReachLink } from 'react-router-dom'
+import { NoUser } from './NoUsers'
 
 export default function UsersTable() {
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -126,6 +127,10 @@ export default function UsersTable() {
   )
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable({ columns, data }, useSortBy)
+
+  if (!users || users.length === 0) {
+    return <NoUser />
+  }
 
   return (
     <Box>

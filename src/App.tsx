@@ -85,7 +85,6 @@ function App() {
               </Link>
             )}
           </Flex>
-
           <AnimatePresence>
             <Routes>
               <Route path="/" element={<HomePage />} />
