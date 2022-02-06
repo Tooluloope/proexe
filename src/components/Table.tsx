@@ -18,6 +18,7 @@ import DeleteModal from './Modal'
 import { User } from '../features/Users/types'
 import { useAppSelector } from '../app/hooks'
 import { selectUsers } from '../features/Users/usersSlice'
+import { Link as ReachLink } from 'react-router-dom'
 
 export default function UsersTable() {
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -36,6 +37,17 @@ export default function UsersTable() {
       {
         Header: 'ID',
         accessor: 'id',
+        Cell: ({
+          row,
+        }: {
+          row: {
+            original: User
+          }
+        }) => {
+          const { original } = row
+          const str = String(original.id).substring(0, 5)
+          return str
+        },
       },
       {
         Header: 'Name',
@@ -51,7 +63,7 @@ export default function UsersTable() {
       },
       {
         Header: 'City',
-        accessor: (originalRow) => originalRow.address.city,
+        accessor: (originalRow) => originalRow?.address?.city,
       },
       {
         width: 300,
@@ -66,8 +78,19 @@ export default function UsersTable() {
         }) => {
           const { original } = row
           return (
-            <Link href={`/add/${original.id}`}>
-              <Button bgColor={'#eeac57'} color="white" px="30px">
+            <Link
+              as={ReachLink}
+              style={{
+                textDecoration: 'none',
+              }}
+              to={`/edit/${original.id}`}
+            >
+              <Button
+                textDecoration={'none'}
+                bgColor={'#eeac57'}
+                color="white"
+                px="30px"
+              >
                 Edit
               </Button>
             </Link>
@@ -88,7 +111,7 @@ export default function UsersTable() {
           const { original } = row
           return (
             <Button
-              onClick={() => handleDelete(original.id)}
+              onClick={() => handleDelete(original.id as number)}
               bgColor={'#d75452'}
               color="white"
               px="30px"

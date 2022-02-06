@@ -10,6 +10,7 @@ import { Box, Button, Flex, Link, Text } from '@chakra-ui/react'
 import { AnimatePresence } from 'framer-motion'
 import EditPage from './pages/Edit'
 import { Loading } from './components/Loading'
+import { Link as ReachLink } from 'react-router-dom'
 
 function App() {
   const dispatch = useAppDispatch()
@@ -54,7 +55,13 @@ function App() {
             <Text fontSize={'25px'} fontWeight="semi-bold">
               User List
             </Text>
-            <Link href="/add/3">
+            <Link
+              as={ReachLink}
+              style={{
+                textDecoration: 'none',
+              }}
+              to="/add"
+            >
               <Button bgColor={'#1477d5'} color="white" px="30px">
                 Add new
               </Button>
@@ -64,7 +71,7 @@ function App() {
           <AnimatePresence>
             <Routes>
               <Route path="/" element={<HomePage />} />
-              <Route path="add/:id" element={<AddPage />} />
+              <Route path="add" element={<AddPage />} />
               <Route path="edit/:id" element={<EditPage />} />
               <Route path="*" element={<Navigate to="/" />} />
             </Routes>

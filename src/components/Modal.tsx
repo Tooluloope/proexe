@@ -9,6 +9,7 @@ import {
   ModalCloseButton,
   Button,
   Text,
+  useToast,
 } from '@chakra-ui/react'
 import { useAppDispatch } from '../app/hooks'
 import { removeUser } from '../features/Users/usersSlice'
@@ -20,10 +21,18 @@ interface IModal {
 }
 export default function DeleteModal({ isOpen, onClose, id }: IModal) {
   const dispatch = useAppDispatch()
+  const toast = useToast()
 
   const confirmDelete = () => {
     dispatch(removeUser(id))
     onClose()
+    toast({
+      title: `User deleted successfully`,
+      status: 'success',
+      duration: 1000,
+      isClosable: true,
+      position: 'bottom-right',
+    })
   }
   return (
     <>

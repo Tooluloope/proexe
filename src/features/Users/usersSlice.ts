@@ -21,7 +21,6 @@ export const usersSlice = createSlice({
   initialState,
   reducers: {
     addUser: (state, action: PayloadAction<User>) => {
-      console.log('here oo')
       state.users = [...state.users, action.payload]
     },
     removeUser: (state, action: PayloadAction<number>) => {
