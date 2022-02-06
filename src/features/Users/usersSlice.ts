@@ -39,6 +39,9 @@ export const usersSlice = createSlice({
       .addCase(fetUsersAsync.pending, (state) => {
         state.status = 'loading'
       })
+      .addCase(fetUsersAsync.rejected, (state) => {
+        state.status = 'failed'
+      })
       .addCase(fetUsersAsync.fulfilled, (state, action) => {
         state.status = 'idle'
         state.users = action.payload

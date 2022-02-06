@@ -1,16 +1,13 @@
 .spinner-container {
   background-color: #fff;
-
   z-index: 99;
   position: fixed;
   width: 300px;
   padding: 10px;
-  top: 50%;
   display: flex;
   justify-content: center;
   align-content: center;
   flex-direction: column;
-  left: 50%;
   margin-top: -100px;
   margin-left: -50px;
   border-radius: 0.5rem;
