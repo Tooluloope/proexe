@@ -34,10 +34,11 @@ export const UserForm = ({
     return navigate('/', { replace: true })
   }
   const validateUniqueUser = () => {
-    const isNotUnique = users.find(
-      (user) => user.username === state?.username || user.email === state?.email
+    const allOtherUsers = users.filter((user) => user.id !== state?.id)
+    const isNotUnique = allOtherUsers.find(
+      (user) => user.email === state?.email || user.username === state?.username
     )
-    if (isNotUnique && isNotUnique.id !== state?.id) return false
+    if (isNotUnique) return false
     return true
   }
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {

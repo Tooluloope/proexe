@@ -27,11 +27,13 @@ export const usersSlice = createSlice({
       state.users = state.users.filter((user) => user.id !== action.payload)
     },
     editUser: (state, action: PayloadAction<User>) => {
-      const filterUsers = state.users.filter(
-        (user) => user.id !== action.payload.id
-      )
-
-      state.users = [...filterUsers, action.payload]
+      const updateUsers = state.users.map((user) => {
+        if (user.id === action.payload.id) {
+          return action.payload
+        }
+        return user
+      })
+      state.users = updateUsers
     },
   },
   extraReducers: (builder) => {
