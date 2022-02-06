@@ -1,26 +1,27 @@
 import React, { useEffect } from 'react'
-import logo from './logo.svg'
 import './App.css'
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, Navigate } from 'react-router-dom'
 
 import { useAppDispatch, useAppSelector } from './app/hooks'
 import HomePage from './pages/Home/index'
 import AddPage from './pages/Add/index'
-import {
-  fetUsersAsync,
-  selectUsers,
-  addUser,
-} from './features/Users/usersSlice'
+import { fetUsersAsync, selectUsers } from './features/Users/usersSlice'
 import { Box, Button, Flex, Link, Text } from '@chakra-ui/react'
 import { AnimatePresence } from 'framer-motion'
+import EditPage from './pages/Edit'
+import { Loading } from './components/Loading'
 
 function App() {
-  const users = useAppSelector(selectUsers)
   const dispatch = useAppDispatch()
+  const { status } = useAppSelector(selectUsers)
 
   useEffect(() => {
     dispatch(fetUsersAsync())
   }, [])
+
+  if (status === 'loading') {
+    return <Loading />
+  }
 
   return (
     <Box w="full" px="20px">
@@ -64,6 +65,8 @@ function App() {
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="add/:id" element={<AddPage />} />
+              <Route path="edit/:id" element={<EditPage />} />
+              <Route path="*" element={<Navigate to="/" />} />
             </Routes>
           </AnimatePresence>
         </Box>

@@ -10,31 +10,38 @@ import {
   Button,
   Text,
 } from '@chakra-ui/react'
+import { useAppDispatch } from '../app/hooks'
+import { removeUser } from '../features/Users/usersSlice'
 
-interface Modal {
+interface IModal {
   isOpen: boolean
   onClose: () => void
   id: number
 }
-export default function DeleteModal({ isOpen, onClose, id }: Modal) {
+export default function DeleteModal({ isOpen, onClose, id }: IModal) {
+  const dispatch = useAppDispatch()
+
+  const confirmDelete = () => {
+    dispatch(removeUser(id))
+    onClose()
+  }
   return (
     <>
       <Modal onClose={onClose} isOpen={isOpen} isCentered>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Modal Title</ModalHeader>
+          <ModalHeader>Delete</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <Text>
-              : The wrapper that provides context for its children.
-              ModalOverlay: The dimmed overlay behind the modal dialog.
-              ModalContent: The container for the modal dialogs content.
-              ModalHeader: The header that labels the modal dialog. ModalFooter:
-              The footer that houses the modal actions.
-            </Text>
+            <Text>Are you sure you want to delete this user</Text>
           </ModalBody>
           <ModalFooter>
-            <Button onClick={onClose}>Close</Button>
+            <Button mr="10px" onClick={onClose}>
+              Cancel
+            </Button>
+            <Button onClick={confirmDelete} color={'white'} bg={'#d75452'}>
+              Delete
+            </Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
